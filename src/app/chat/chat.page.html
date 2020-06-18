@@ -1,0 +1,25 @@
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="3">
+        <app-user-list class="max-width" (sendData)="retrieveUserSelection($event)"></app-user-list>
+      </ion-col>
+      <ion-col size="6" *ngIf="messages$ | async as messages">
+        <ion-card>
+          <app-message-view [reciever]="reciever" [conversation]="conversation" class="max-width"></app-message-view>
+          {{ messages | json }}
+        </ion-card>
+      </ion-col>
+      <ion-col size="3">
+        <app-conversation-list class="max-width"></app-conversation-list>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col offset="3" size="6">
+        <app-message-input class="max-width" (sendMessageString)="retrieveMessageString($event)"></app-message-input>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

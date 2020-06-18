@@ -1,0 +1,13 @@
+<div *ngIf="users|async as users">
+
+  <app-search [data]="{ list: users, label: 'Find user by name', textKey: displayParams, valueKey: users[' userId'] }"
+    (sendData)="retrieveSearchSelection($event)"></app-search>
+
+  <mat-list *ngFor="let user of users ">
+    <mat-list-item (click)="sendUser(user)">
+      <h3 mat-line>{{user.name}}</h3>
+      <p mat-line>{{user.type}}</p>
+    </mat-list-item>
+  </mat-list>
+
+</div>

@@ -1,0 +1,12 @@
+<form class="example-form">
+  <mat-form-field class="max-width">
+    <mat-label>{{data.label}}</mat-label>
+    <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngFor="let option of filteredOptions | async" (click)="select(option)" [value]="option[valueKey]">
+        <h3 mat-line>{{option[textKey[0]]}}</h3>
+
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
