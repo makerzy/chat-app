@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <!-- <ion-title>{{header}}</ion-title>
+    <ion-label (click)="closeModal()">
+      <ion-icon name="send"></ion-icon>
+    </ion-label> -->
+    <ion-buttons slot="start">
+      <ion-back-button (click)="closeModal()" defaultHref="/chat" [text]="'Back'" [icon]="'chevron-back'">
+      </ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-filter (sendData)="retrieveFilteredList($event)"
+    [data]="{ list: list, placeholder: placeholder,header:header, searchParams: displayParams }"></app-filter>
+
+  <ion-list lines="none" *ngIf="displayedList">
+    <ion-item *ngFor="let item of displayedList">
+      <ion-label (click)="selectItem(item)" class="ion-text-wrap">
+        <ion-text color="primary">
+          <h3>{{ item[displayParams[0]] }}</h3>
+        </ion-text>
+        <p>{{ item[displayParams[1]] }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

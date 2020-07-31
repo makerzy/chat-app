@@ -1,0 +1,86 @@
+<ion-grid>
+  <ion-row class="ion-padding" *ngIf="messages && messages.length>1">
+
+    <ion-col size="4" *ngIf="messages && messages.length>0">
+      <span *ngIf="messages && messages.length>0">
+        <ion-label (click)="forwardMessages()">
+          <ion-icon name="arrow-redo-sharp"></ion-icon> &nbsp; &nbsp;Forward
+        </ion-label>
+      </span>
+    </ion-col>
+    <ion-col size="4" *ngIf="messages && messages.length>0">
+      <span *ngIf="messages && messages.length>0">
+        <ion-label (click)="deleteMessages()">
+          <ion-icon name="trash-sharp"></ion-icon> &nbsp; &nbsp;Delete
+        </ion-label>
+      </span>
+    </ion-col>
+    <ion-col size="4">
+      <span *ngIf="messages && messages.length>0">
+        <ion-label (click)="copyMessages()">
+          <ion-icon name="copy"></ion-icon> &nbsp; &nbsp;Copy
+        </ion-label>
+      </span>
+    </ion-col>
+  </ion-row>
+  <ion-row class="ion-padding" *ngIf="messages && messages.length===1">
+
+    <ion-col size="3" *ngIf="messages && messages.length>0">
+      <span *ngIf="messages && messages.length>0">
+        <ion-label (click)="forwardMessages()">
+          <ion-icon name="arrow-redo-sharp"></ion-icon> &nbsp; &nbsp;Forward
+        </ion-label>
+      </span>
+    </ion-col>
+    <ion-col size="3" *ngIf="messages && messages.length>0">
+      <span *ngIf="messages && messages.length===1">
+        <ion-label (click)="replyMessage()">
+          <ion-icon name="arrow-undo-sharp"></ion-icon> &nbsp; &nbsp;Reply
+        </ion-label>
+      </span>
+    </ion-col>
+    <ion-col size="3" *ngIf="messages && messages.length>0">
+      <span *ngIf="messages && messages.length>0">
+        <ion-label (click)="deleteMessages()">
+          <ion-icon name="trash-sharp"></ion-icon> &nbsp; &nbsp;Delete
+        </ion-label>
+      </span>
+    </ion-col>
+    <ion-col size="3">
+      <span *ngIf="messages && messages.length>0">
+        <ion-label (click)="copyMessages()">
+          <ion-icon name="copy"></ion-icon> &nbsp; &nbsp;Copy
+        </ion-label>
+      </span>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<!-- <ion-content>
+  <ion-list>
+    <span *ngIf="messages && messages.length>0">
+      <ion-label (click)="forwardMessages()">
+        <ion-icon name="arrow-redo-sharp"></ion-icon> &nbsp; &nbsp;Forward
+      </ion-label>
+    </span>
+    <span *ngIf="messages && messages.length>0">
+      <ion-label (click)="replyMessage()">
+        <ion-icon name="arrow-undo-sharp"></ion-icon> &nbsp; &nbsp;Reply
+      </ion-label>
+    </span>
+    <span *ngIf="messages && messages.length>0">
+      <ion-label (click)="deleteMessages()">
+        <ion-icon name="trash-sharp"></ion-icon> &nbsp; &nbsp;Delete
+      </ion-label>
+    </span>
+    <span *ngIf="messages && messages.length>0">
+      <ion-label (click)="copyMessages()">
+        <ion-icon name="copy"></ion-icon> &nbsp; &nbsp;Copy
+      </ion-label>
+    </span>
+    <span>
+      <ion-label (click)='dismissPopover()'>
+        Close
+      </ion-label>
+    </span>
+  </ion-list>
+</ion-content> -->

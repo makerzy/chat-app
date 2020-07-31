@@ -1,12 +1,62 @@
 ion-content {
   overflow: hidden;
+  // --height: -moz-calc(100vh - (100px));
+  // --height: -webkit-calc(100vh - (100px));
+  // --height: calc(100vh - (100px));
+  height: 100%;
 }
 
-ion-card {
-  height: 85vh;
-  top: 0;
+.container {
+  position: relative;
+  height: -moz-calc(100vh - (100px));
+  height: -webkit-calc(100vh - (100px));
+  width: 96%;
+  margin: auto;
+}
+
+ion-label {
+  pointer-events: all !important;
 }
 
 app-user-list {
   overflow-y: scroll;
 }
+
+app-message-input {
+  position: fixed;
+  bottom: 8px;
+  // border: 2px #dee0de solid;
+  // border-radius: 15px;
+  width: 96%;
+  margin: auto;
+}
+
+.messages {
+  height: 93%;
+  overflow-y: auto;
+}
+
+.no-conversation {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  margin-top: 20%;
+}
+
+// ::ng-deep .mat-focused .mat-form-field-label {
+//   /*change color of label*/
+//   display: none;
+// }
+
+// ::ng-deep.mat-form-field-underline {
+//   /*change color of underline*/
+//   display: none;
+//   background-color: #dee0de !important;
+// }
+
+// ::ng-deep.mat-form-field-ripple {
+//   /*change color of underline when focused*/
+//   display: none;
+//   background-color: #dee0de !important;
+//   ;
+// }

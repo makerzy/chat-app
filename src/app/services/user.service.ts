@@ -17,6 +17,26 @@ export class UserService {
       name: "Peterson Matt",
       dob: "09/13/1987",
       conversations: [],
+      savedMessages: [
+        {
+          id: "123",
+          topic: "welcome",
+          content:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, ipsum. Ex nesciunt accusamus odio libero dignissimos eum dolorem esse pariatur.",
+        },
+        {
+          id: "124",
+          topic: "Greetings",
+          content:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, ipsum. Ex nesciunt accusamus odio libero dignissimos eum dolorem esse pariatur.",
+        },
+        {
+          id: "125",
+          topic: "diagnosis",
+          content:
+            "conLorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, ipsum. Ex nesciunt accusamus odio libero dignissimos eum dolorem esse pariatur.tent",
+        },
+      ],
     },
     {
       type: "clinician",
@@ -73,36 +93,20 @@ export class UserService {
   currentUserId: string;
   constructor() {}
 
-  // users$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
-
-  // getUsersObservable(): Observable<User[]> {
-  //   return this.users$;
-  // }
   getCurrentUser() {
-    // console.log(this.users$.value);
-    // return this.users$.value;
     return this.getUserByUserId("Matt");
   }
 
-  // updateUser(user: User[]) {
-  //   return this.users$.next(user);
-  // }
-
   getUserByUserId(id: string) {
-    return this.users.find(({ userId }) => {
-      const slicedId = userId.split("-")[0];
-      return id === slicedId;
-    });
+    return this.users.find(({ userId }) => userId.startsWith(id));
   }
 
   addUser(user: User) {
-    // const updatedUserData = [...this.users$.value, user];
-    // this.users$.next(updatedUserData);
     this.users.push(user);
   }
 
   getAllUsers() {
     const users = [...this.users];
-    return of(users);
+    return users;
   }
 }

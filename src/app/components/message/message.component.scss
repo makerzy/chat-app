@@ -1,10 +1,74 @@
 .belongs-to-user {
+  margin-bottom: 5px;
   background-color: lightcyan;
   text-align: right;
+  float: right;
+  width: 100%;
 }
 
 .not-users {
+  margin-bottom: 5px;
   text-align: left;
-  left: 0;
+  float: left;
+  width: 100%;
   background-color: lightgray;
 }
+
+ion-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  --ion-safe-area-right: 0;
+}
+
+.time {
+  display: block;
+  font-size: smaller;
+  position: absolute;
+  margin-top: 1em;
+  right: 0;
+  bottom: 0;
+}
+
+.name {
+  margin: 10px;
+  padding: 10px;
+  display: block;
+  position: absolute;
+  float: right;
+  top: 0;
+}
+
+.content {
+  display: block;
+  margin: 3px;
+}
+
+@media only screen and (min-width: 375px) {
+  .scroll-content:not(.show-scrollbar) {
+    margin-right: -17px;
+    overflow-y: scroll;
+  }
+}
+
+
+ion-content {
+  // overwrite inline styles
+  // --offset-bottom: auto !important;
+  --overflow: auto;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+
+/*
+.text {
+  display: block;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+ */

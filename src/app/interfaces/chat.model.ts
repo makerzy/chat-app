@@ -1,10 +1,12 @@
 export interface Message {
   authorId: string;
+  recieverId?: string;
   content: string;
   conversationId: string; //the id of the conversation the message belogs to
   createdAt: Date;
   id: string; //message ID
   isSent: boolean;
+  isSelected?: boolean;
 }
 
 export interface Conversation {
@@ -22,8 +24,12 @@ export interface User {
   connected: boolean;
   name: string;
   dob: string;
-  conversations: {
-    name: string;
-    id: string;
-  }[];
+  conversations: Conversation[];
+  savedMessages?: SavedMessage[];
+}
+
+export interface SavedMessage {
+  id: string;
+  topic: string;
+  content: string;
 }

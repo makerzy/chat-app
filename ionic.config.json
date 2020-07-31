@@ -1,5 +1,8 @@
 {
   "name": "client-chat-app",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
   "type": "angular"
 }

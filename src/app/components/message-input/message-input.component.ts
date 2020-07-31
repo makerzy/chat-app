@@ -1,16 +1,32 @@
-import { Component, Output, EventEmitter } from "@angular/core";
+import {
+  Component,
+  Output,
+  EventEmitter,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from "@angular/core";
 
 @Component({
   selector: "app-message-input",
   templateUrl: "./message-input.component.html",
   styleUrls: ["./message-input.component.scss"],
 })
-export class MessageInputComponent {
+export class MessageInputComponent implements OnChanges {
   @Output() sendMessageString: EventEmitter<string> = new EventEmitter();
-
+  @Input() _message: string;
   message: string;
+  available: boolean = false;
 
   constructor() {}
+
+  /* Check for changes */
+  /* https://stackoverflow.com/questions/41728043/detect-when-input-value-changed-in-directive */
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes._message && this._message !== undefined) {
+      this.available = true;
+    }
+  }
 
   sendMessage() {
     if (!this.message || this.message.trim().length === 0) return;

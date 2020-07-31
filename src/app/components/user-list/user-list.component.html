@@ -1,13 +1,40 @@
-<div *ngIf="users|async as users">
+<div *ngIf="_users as users">
+  <app-filter (sendData)="retrieveFilteredList($event)"
+    [data]="{ list: users, placeholder: 'Search user by name or dob', searchParams: displayParams }">
+  </app-filter>
+  <div *ngIf="filteredUser.length>0">
+    <mat-list *ngFor="let user of filteredUser ">
+      <mat-list-item (click)="sendUser(user)">
+        <h3 mat-line>{{user.name}}</h3>
+        <p mat-line>{{user.type}}</p>
+      </mat-list-item>
+    </mat-list>
+  </div>
+  <div *ngIf="filteredUser.length===0">
+    <mat-list *ngFor="let user of users">
+      <div *ngIf=" user.conversations.length>0 && user.conversations as conversations">
+        <mat-list-item (click)="getUser(user)" *ngIf=" user.userId !==_user && conversations.length>0">
+          <ion-text>
+            <h3>{{user.name}}</h3>
+            <p *ngIf="conversations[0].messages.length>0">
+              {{conversations[0].messages[conversations[0].messages.length-1].content}}</p>
+            <p *ngIf="conversations[0].messages.length>0"><small>
+                {{conversations[0].messages[conversations[0].messages.length-1].createdAt | fromNow}}</small>
+            </p>
+          </ion-text>
 
-  <app-search [data]="{ list: users, label: 'Find user by name', textKey: displayParams, valueKey: users[' userId'] }"
-    (sendData)="retrieveSearchSelection($event)"></app-search>
+        </mat-list-item>
+      </div>
+    </mat-list>
+  </div>
+  <!--  <app-search [data]="{ list: users, label: 'Find user by name', textKey: displayParams, valueKey: users[' userId'] }"
+    (sendData)="retrieveSearchSelection($event)"></app-search> -->
 
-  <mat-list *ngFor="let user of users ">
+  <!-- <mat-list *ngFor="let user of filteredUser ">
     <mat-list-item (click)="sendUser(user)">
       <h3 mat-line>{{user.name}}</h3>
       <p mat-line>{{user.type}}</p>
     </mat-list-item>
-  </mat-list>
+  </mat-list> -->
 
 </div>

@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="chat" [text]="'Back'" [icon]="'chevron-back'"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Saved Messages
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content #content>
+
+  <app-filter (sendData)="retrieveFilteredList($event)"
+    [data]="{ list: messages, placeholder: 'search messages', searchParams: ['topic','content'] }"></app-filter>
+  <div *ngIf="_messages">
+    <ion-list *ngFor="let message of _messages">
+      <ion-item>
+        <ion-text>
+          <h2 class="ion-padding">{{message.topic}}</h2>
+          <ion-text>{{message.content}}</ion-text>
+          <div>
+
+            <ion-button (click)="deleteMessage(message.id)" color="warning" class="ion-margin">
+              <ion-label>
+                Delete from favorites
+                <ion-icon name="trash"></ion-icon>
+              </ion-label>
+            </ion-button>
+            <ion-button (click)="copyMessage(message.content)" color="light" class="ion-margin">
+              <ion-label>
+                Copy to clipboard
+                <ion-icon name="copy"></ion-icon>
+              </ion-label>
+            </ion-button>
+          </div>
+        </ion-text>
+      </ion-item>
+    </ion-list>
+  </div>
+
+</ion-content>

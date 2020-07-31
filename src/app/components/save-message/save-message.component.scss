@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2em;
+}
+
+
+mat-form-field {
+  width: 80%;
+  margin: auto;
+  padding-bottom: 2em;
+}
+
+.submit {
+  width: 80%;
+  margin: 3em auto;
+}

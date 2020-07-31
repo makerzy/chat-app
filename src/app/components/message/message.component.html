@@ -1,14 +1,46 @@
-<div *ngIf="user && messages$ | async as messages">
-  <mat-list>
-    <mat-list-item *ngFor="let message of messages" [ngClass]="{
-        'belongs-to-user': message.authorId === user.username,
-        'not-users': message.authorId !== user.username
-      }">
-      <h3 mat-line>{{ message.authorId }}</h3>
-      <p mat-line>{{ message.content }}</p>
-      <p mat-line>
-        <small>{{ message.createdAt | fromNow }}</small>
-      </p>
-    </mat-list-item>
-  </mat-list>
-</div>
+<ion-content #scrollMe [scrollEvents]="true" scrollbar [scrollTop]="scrollMe.scrollToBottom(300)">
+  <div *ngIf=" user && messages$ | async as messages">
+
+    <!-- <mat-grid-list cols="2" >
+  <mat-grid-tile colspan="1">1</mat-grid-tile>
+  <mat-grid-tile colspan="11">2</mat-grid-tile>
+  
+</mat-grid-list> -->
+
+    <ion-item lines="none" class="ion-no-padding" *ngFor="let message of messages; let last=last">
+      <div class="item" [ngClass]="{
+          'belongs-to-user': message.authorId.split('-')[0] === user.username,
+          'not-users': message.authorId.split('-')[0] !== user.username
+        }">
+        <ion-grid itemContent>
+          <ion-row>
+            <ion-col size="2">
+              <ion-label>
+                <ion-checkbox item-start (ionChange)="messageActions(message)" slot="start" *ngIf="select">
+                </ion-checkbox>
+              </ion-label>
+            </ion-col>
+            <ion-col size="10">
+              <ion-label>
+                <ion-text class="content">
+                  <p>{{ message.content }}</p><br>
+                </ion-text>
+                <div class="time ">
+                  <p>
+                    <time class="ion-padding">{{setTime(message.createdAt)}}</time>
+                  </p>
+                </div>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
+
+
+
+      </div>
+
+    </ion-item>
+    <!-- <h3 (click)="scrollTo()" *ngIf="replyMessage">{{replyMessage.content}}</h3> -->
+  </div>
+</ion-content>

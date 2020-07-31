@@ -1,4 +1,7 @@
 <mat-form-field>
-  <input matInput placeholder="Send Message" [(ngModel)]="message" (keydown)="handleSubmit($event)">
-  <mat-icon matSuffix (click)="sendMessage()">send</mat-icon>
+  <textarea matInput type="text" placeholder="Send Message" [(ngModel)]="message"
+    (keydown)="handleSubmit($event)"></textarea>
+  <mat-icon *ngIf="!available" matSuffix (click)="sendMessage()">send</mat-icon>
+  <mat-icon *ngIf="available" matSuffix (click)="pasteMessage()">content_paste</mat-icon>
+
 </mat-form-field>

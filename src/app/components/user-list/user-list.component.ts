@@ -7,9 +7,8 @@ import {
   OnInit,
 } from "@angular/core";
 import { UserService } from "src/app/services/user.service";
-import { Observable } from "rxjs";
 import { User } from "src/app/interfaces/chat.model";
-import { send } from "process";
+import { NavService } from "src/app/services/nav.service";
 
 @Component({
   selector: "app-user-list",
@@ -17,30 +16,48 @@ import { send } from "process";
   styleUrls: ["./user-list.component.scss"],
 })
 export class UserListComponent implements OnInit {
-  users: Observable<User[]>;
-  displayParams = ["name"];
+  _users: User[];
+  _user: string;
+  displayParams = ["name", "dob"];
+  filteredUser: User[] = [];
   @Output() sendData: EventEmitter<User> = new EventEmitter();
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private navService: NavService
+  ) {}
 
   ngOnInit() {
+    this._user = this.userService.getCurrentUser().userId;
     this.getUsers();
   }
 
   getUsers() {
-    this.users = this.userService.getAllUsers();
+    this._users = this.userService.getAllUsers();
   }
 
   retrieveSearchSelection(user) {
     console.log(" User: ", user);
+    if (user) {
+      this.navService.push("chat", { user: user });
+      this.sendData.emit(user);
+    }
+  }
+  retrieveFilteredList(users: User[]) {
+    console.log(users);
+    if (users) this.filteredUser = users;
+    else this.filteredUser = [];
+  }
+
+  sendUser(user: User) {
+    console.log(user);
+    this.navService.push("chat", { user: user });
     this.sendData.emit(user);
   }
 
-  async sendUser(user: User) {
+  getUser(user: User) {
     console.log(user);
+    this.navService.push("chat", { user: user });
     this.sendData.emit(user);
-    // const user = await this.userService.getUserByUserId(id);
-    // console.log("Userrr: ", user);
-    // const _user = user[0];
-    // this.sendData.emit(_user);
+    this.filteredUser = [];
   }
 }

@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/chat" [text]="'Back'" [icon]="'chevron-back'">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Reuseable Message</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div class="container">
+  <h1>Add Message</h1>
+  <mat-form-field>
+    <mat-label>Message Topic</mat-label>
+    <input [(ngModel)]="saveMessage.topic" type="text" name="topic" required matInput>
+  </mat-form-field>
+  <br>
+
+  <mat-form-field>
+    <mat-label>Message Content</mat-label>
+    <textarea matInput type="text" [(ngModel)]="saveMessage.content" name="content" required></textarea>
+  </mat-form-field>
+</div>
+<ion-button [disabled]='saveMessage.topic === "" || saveMessage.content === ""' color="primary" shape="round"
+  class="submit" (click)="addMessage()">Submit</ion-button>
