@@ -6,6 +6,7 @@ import {
   OnChanges,
   SimpleChanges,
 } from "@angular/core";
+import { Message } from "src/app/interfaces/chat.model";
 
 @Component({
   selector: "app-message-input",
@@ -17,7 +18,7 @@ export class MessageInputComponent implements OnChanges {
   @Input() _message: string;
   message: string;
   available: boolean = false;
-
+  @Input() replyMessage: Message;
   constructor() {}
 
   /* Check for changes */

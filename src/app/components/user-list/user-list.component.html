@@ -11,9 +11,9 @@
     </mat-list>
   </div>
   <div *ngIf="filteredUser.length===0">
-    <mat-list *ngFor="let user of users">
+    <ion-list *ngFor="let user of users">
       <div *ngIf=" user.conversations.length>0 && user.conversations as conversations">
-        <mat-list-item (click)="getUser(user)" *ngIf=" user.userId !==_user && conversations.length>0">
+        <ion-list (click)="getUser(user)" *ngIf=" user.userId !==_user && conversations.length>0">
           <ion-text>
             <h3>{{user.name}}</h3>
             <p *ngIf="conversations[0].messages.length>0">
@@ -23,9 +23,9 @@
             </p>
           </ion-text>
 
-        </mat-list-item>
+        </ion-list>
       </div>
-    </mat-list>
+    </ion-list>
   </div>
   <!--  <app-search [data]="{ list: users, label: 'Find user by name', textKey: displayParams, valueKey: users[' userId'] }"
     (sendData)="retrieveSearchSelection($event)"></app-search> -->

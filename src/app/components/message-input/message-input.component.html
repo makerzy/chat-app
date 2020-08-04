@@ -1,7 +1,16 @@
-<mat-form-field>
+<div class="max-width" *ngIf="replyMessage">
+  <!-- <h4>{{replyMessage.authorId.split('-')[0]}}</h4> -->
+  <p>
+    {{replyMessage.content| truncateText: 90}}
+  </p>
+</div>
+<ion-item lines="none">
+  <ion-textarea [(ngModel)]="message" (keydown)="handleSubmit($event)" cols="3" placeholder="Type a message">
+  </ion-textarea>
+  <ion-icon (click)="sendMessage()" name="send"></ion-icon>
+</ion-item>
+<!-- <mat-form-field>
   <textarea matInput type="text" placeholder="Send Message" [(ngModel)]="message"
     (keydown)="handleSubmit($event)"></textarea>
   <mat-icon *ngIf="!available" matSuffix (click)="sendMessage()">send</mat-icon>
-  <mat-icon *ngIf="available" matSuffix (click)="pasteMessage()">content_paste</mat-icon>
-
-</mat-form-field>
+</mat-form-field> -->

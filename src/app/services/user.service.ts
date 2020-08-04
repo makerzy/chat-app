@@ -94,7 +94,7 @@ export class UserService {
   constructor() {}
 
   getCurrentUser() {
-    return this.getUserByUserId("Matt");
+    return this.getUserByUserId("Joel");
   }
 
   getUserByUserId(id: string) {

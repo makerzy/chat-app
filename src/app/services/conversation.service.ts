@@ -242,7 +242,7 @@ export class ConversationService {
     currentConversations.push(conversation);
   }
 
-  createMessage(messageString: string, conversationId: string) {
+  async createMessage(messageString: string, conversationId: string) {
     const conversations = this.getCurrentConversationValue() || [];
     const currentConversation = conversations.find(
       (conversation) => conversation.id === conversationId
@@ -278,6 +278,11 @@ export class ConversationService {
     const currentConversation = this.getCurrentConversationValue() || [];
     const conversation = currentConversation.find(({ id }) => id === _id);
     return of(conversation.messages);
+  }
+  getLastMessageFormConversation(_id: string) {
+    const currentConversation = this.getCurrentConversationValue() || [];
+    const conversation = currentConversation.find(({ id }) => id === _id);
+    return conversation.messages[conversation.messages.length - 1];
   }
 
   getConversationByConversationId(_id: string) {

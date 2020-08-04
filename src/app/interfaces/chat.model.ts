@@ -6,6 +6,8 @@ export interface Message {
   createdAt: Date;
   id: string; //message ID
   isSent: boolean;
+  repliedMessage?: string;
+  replyMessageId?: string;
   isSelected?: boolean;
 }
 

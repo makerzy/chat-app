@@ -3,11 +3,9 @@ import {
   OnChanges,
   Input,
   OnInit,
-  ViewChild,
   Output,
   EventEmitter,
-  ElementRef,
-  Directive,
+  ChangeDetectorRef,
 } from "@angular/core";
 import { UserService } from "../../services/user.service";
 import { User, Message } from "src/app/interfaces/chat.model";
@@ -20,18 +18,16 @@ import { MomentService } from "src/app/services/moment.service";
   templateUrl: "./message.component.html",
   styleUrls: ["./message.component.scss"],
 })
-@Directive({
-  selector: "[myScrollVanish]",
-})
 export class MessageComponent implements OnChanges, OnInit {
   @Input() conversationId: string;
   messages$: Observable<Message[]>;
-  @ViewChild("content", { static: false }) myContent: ElementRef;
+  showReply: boolean = false;
   user: User;
   @Input() select;
   selectedMessages: Message[] = [];
-  scrollBottom: boolean = false;
-  @Input() replyMessage: Message;
+  @Input() replyMessageTime: string;
+  @Input() replyMessageAuthor: string;
+  @Input() replyMessageContent: string;
   @Output() sendSelectedMessages: EventEmitter<Message[]> = new EventEmitter();
   constructor(
     private userService: UserService,
@@ -51,15 +47,27 @@ export class MessageComponent implements OnChanges, OnInit {
   setTime(date) {
     return this.moment.formatTimeDate(date);
   }
-  /* 
-  scrollTo() {
-    let element;
-    this.messages$.subscribe((msgs) =>
-      msgs.find((msg) => (element = msg.id === this.replyMessage.id))
+
+  scrollToRepliedMessage(id: string) {
+    const element: HTMLElement = document.getElementById(id);
+    element.scrollIntoView({ behavior: "smooth" });
+    element.setAttribute("style", "background: #ddd; color:#000");
+    setTimeout(() => element.removeAttribute("style"), 3000);
+  }
+
+  scrollToLastMessage() {
+    const lastMessage = this.conversationService.getLastMessageFormConversation(
+      this.conversationId
     );
-    var rect = element.getBoundingClientRect();
-    console.log(rect.top, rect.right, rect.bottom, rect.left);
-  } */
+    if (this.replyMessageContent) {
+      this.showReply = true;
+    }
+
+    if (lastMessage) {
+      const element: HTMLElement = document.getElementById(lastMessage.id);
+      element.scrollIntoView({ behavior: "auto" });
+    }
+  }
 
   getSelected(msg: Message) {
     if (msg.isSelected) {

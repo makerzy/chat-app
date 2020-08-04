@@ -19,7 +19,7 @@
         <ion-item (click)="closeMenu()" routerLink="/chat/favorites">
           <ion-icon slot="start" name="star"></ion-icon>
           <ion-label>Favorites</ion-label>
-          <ion-badge>{{currentUser.savedMessages.length}}</ion-badge>
+          <ion-badge *ngIf="currentUser.savedMessages">{{currentUser.savedMessages.length}}</ion-badge>
         </ion-item>
         <ion-item (click)="sendPrivate()">
           <ion-icon *ngIf="privateMsg" slot="start" name="eye-off"></ion-icon>
@@ -60,16 +60,19 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content [scrollEvents]="true">
+  <ion-content>
+    <!-- <app-user-list></app-user-list> -->
     <div *ngIf="conversation">
 
       <div class="container">
         <div class="messages">
-          <app-message [conversationId]="conversation.id" [replyMessage]='replyMessage' [select]='select'
+          <app-message [conversationId]="conversation.id" [replyMessageContent]='replyMessageContent'
+            [replyMessageAuthor]='replyMessageAuthor' [replyMessageTime]='replyMessageTime' [select]='select'
             (sendSelectedMessages)="retrieveSelectedMessages($event)">
           </app-message>
         </div>
-        <app-message-input [_message]="_message" (sendMessageString)="retrieveMessageString($event)">
+        <app-message-input [_message]="_message" [replyMessage]="replyMessage"
+          (sendMessageString)="retrieveMessageString($event)">
         </app-message-input>
       </div>
     </div>

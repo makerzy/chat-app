@@ -1,32 +1,92 @@
+// ion-content {
+//   --background: url('../../../assets/images/defaultBcg.jpeg') no-repeat center center fixed;
+//   background-size: cover;
+//   height: 100%;
+//   // background-size: cover;
+//   // height: 100%;
+// }
+
+.selectedMessage {
+  background-color: #afafb3;
+}
+
+.ion-item:after {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+// ion-item:first-child {
+//   margin: 0px 0 8px;
+// }
+
 .belongs-to-user {
-  margin-bottom: 5px;
-  background-color: lightcyan;
-  text-align: right;
+  background: #e1ffc7;
+  border-radius: 5px;
   float: right;
-  width: 100%;
+  padding: .4em;
 }
 
 .not-users {
-  margin-bottom: 5px;
-  text-align: left;
+  // margin-bottom: 5px;
+  // // text-align: left;
+  // float: left;
+  // max-width: 100%;
+  background: #fff;
+  border-radius: 5px;
   float: left;
-  width: 100%;
-  background-color: lightgray;
+  padding: .4em;
+}
+
+.ion-item .belong-to-user:after {
+  border-width: 0px 0 10px 10px;
+  border-color: transparent transparent transparent #e1ffc7;
+  top: 0;
+  right: -10px;
+}
+
+
+
+.ion-item.not-user:after {
+  border-width: 0px 10px 10px 0;
+  border-color: transparent #fff transparent transparent;
+  top: 0;
+  left: -10px;
 }
 
 ion-item {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  --ion-safe-area-right: 0;
+  padding: .2em;
 }
+
+
+/* for item side of first index */
+// .right {
+//   position: absolute;
+//   top: 0;
+//   z-index: 100;
+//   display: block;
+//   width: 8px;
+//   height: 13px;
+// }
 
 .time {
   display: block;
   font-size: smaller;
   position: absolute;
-  margin-top: 1em;
-  right: 0;
+  margin-top: .1em;
+  padding: 0 .4em .4em;
+  right: 5px;
+  bottom: 0;
+}
+
+.time-left {
+  display: block;
+  font-size: smaller;
+  position: absolute;
+  margin-top: .1em;
+  padding: 0 .4em .4em;
+  left: 5px;
   bottom: 0;
 }
 
@@ -42,33 +102,18 @@ ion-item {
 .content {
   display: block;
   margin: 3px;
+  min-width: 4em;
+  padding: 3px .5em;
 }
 
-@media only screen and (min-width: 375px) {
-  .scroll-content:not(.show-scrollbar) {
-    margin-right: -17px;
-    overflow-y: scroll;
-  }
+// @media only screen and (min-width: 375px) {
+//   .scroll-content:not(.show-scrollbar) {
+//     margin-right: -17px;
+//     overflow-y: scroll;
+//   }
+// }
+
+.replyMessage {
+  background-color: #ddd;
+  padding: 5px;
 }
-
-
-ion-content {
-  // overwrite inline styles
-  // --offset-bottom: auto !important;
-  --overflow: auto;
-  overflow: auto;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-
-/*
-.text {
-  display: block;
-  white-space: normal;
-  overflow-wrap: break-word;
-}
-
- */

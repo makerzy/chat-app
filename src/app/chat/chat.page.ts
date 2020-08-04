@@ -9,6 +9,8 @@ import { PopoverService } from "../services/popover.service";
 import { MenuController } from "@ionic/angular";
 import { NavService } from "../services/nav.service";
 import { SavedMessagesComponent } from "../components/saved-messages/saved-messages.component";
+import { MessageComponent } from "../components/message/message.component";
+import { MomentService } from "../services/moment.service";
 
 @Component({
   selector: "app-chat",
@@ -25,18 +27,22 @@ export class ChatPage implements OnInit {
   selectedMessages: Message[] = [];
   _message: string;
   replyMessage: Message;
+  replyMessageContent: string;
+  replyMessageTime: string;
+  replyMessageAuthor: string;
   displayParams: string[] = ["name", "type"];
   placeholder: string = "Search user by name or dob";
   select: boolean = false;
   privateMsg: boolean = false;
-
+  @ViewChild(MessageComponent) MsgComponent;
   constructor(
     private userService: UserService,
     private conversationService: ConversationService,
     private modalService: ModalService,
     private popoverService: PopoverService,
     private mneuController: MenuController,
-    private navService: NavService
+    private navService: NavService,
+    private moment: MomentService
   ) {
     this.currentUser = this.userService.getCurrentUser();
     this.users = this.userService.getAllUsers();
@@ -131,19 +137,39 @@ export class ChatPage implements OnInit {
     return this.conversation;
   }
 
-  retrieveMessageString(message: string) {
+  async retrieveMessageString(message: string) {
     if (this.privateMsg) {
       this.conversationService.addPrivateMessage(this.conversation.id, message);
       this.reciever.conversations.forEach(({ messages }) =>
         console.log(messages)
       );
-    } else
-      this.conversationService.createMessage(message, this.conversation.id);
+    } else {
+      const newMessage = await this.conversationService.createMessage(
+        message,
+        this.conversation.id
+      );
+
+      if (this.replyMessage) {
+        newMessage.repliedMessage = this.replyMessage.content;
+        newMessage.replyMessageId = this.replyMessage.id;
+      }
+      this.replyMessage = null;
+    }
+    //Calling ChildComponent function from ParentComponent
+    setTimeout(() => this.MsgComponent.scrollToLastMessage(), 50);
   }
 
   retrieveReplyMessages(message: Message) {
     this.replyMessage = message;
     console.log(this.replyMessage);
+    if (this.replyMessage) {
+      this.replyMessageContent = this.replyMessage.content;
+      this.replyMessageAuthor = this.replyMessage.authorId;
+      this.replyMessageTime = this.moment.formatTimeDate(
+        this.replyMessage.createdAt
+      );
+      console.log("ReplyContent: ", this.replyMessageContent);
+    }
   }
 
   retrieveConversationId(conversationId: string) {

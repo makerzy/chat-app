@@ -2,6 +2,20 @@ mat-form-field {
   width: 100%;
 }
 
+ion-textarea {
+  width: 100%;
+}
+
+.replyMessage {
+  background-color: #cccffe;
+}
+
+ion-item {
+  border: solid 1px #ddd;
+  border-radius: 6px;
+}
+
+
 input {
   overflow-wrap: break-word;
 }
