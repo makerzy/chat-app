@@ -1,4 +1,4 @@
-<div class="max-width" *ngIf="replyMessage">
+<div class="max-width replyMessage" *ngIf="replyMessage">
   <!-- <h4>{{replyMessage.authorId.split('-')[0]}}</h4> -->
   <p>
     {{replyMessage.content| truncateText: 90}}

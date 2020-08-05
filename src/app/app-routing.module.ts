@@ -21,6 +21,10 @@ const routes: Routes = [
     path: 'modal',
     loadChildren: () => import('./modal/modal.module').then( m => m.ModalPageModule)
   },
+  {
+    path: 'zoom',
+    loadChildren: () => import('./zoom/zoom.module').then( m => m.ZoomPageModule)
+  },
 ];
 
 @NgModule({

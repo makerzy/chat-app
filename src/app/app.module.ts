@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MaterialModule } from "./material.module";
 
 import { FormsModule } from "@angular/forms";
+import { Zoom } from "@ionic-native/zoom/ngx";
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +27,7 @@ import { FormsModule } from "@angular/forms";
   ],
   providers: [
     StatusBar,
+    Zoom,
     SplashScreen,
     Clipboard,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

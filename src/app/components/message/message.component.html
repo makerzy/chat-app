@@ -1,7 +1,8 @@
 <ion-content scrollbar>
+  <div class="overlay"></div>
   <div *ngIf=" user && messages$ | async as messages">
 
-    <ion-item lines="none" class="ion-no-padding ion-item" *ngFor="let message of messages; index">
+    <ion-item color="transparent" lines="none" class="ion-no-padding ion-item" *ngFor="let message of messages; index">
 
       <ion-grid class="ion-no-padding">
         <ion-row (click)="select ? messageActions(message): null" [ngClass]="{'selectedMessage':message.isSelected }">
@@ -11,25 +12,21 @@
               </ion-checkbox>
             </ion-label>
           </ion-col>
-          <!-- [ngClass]="{
-                          'belongs-to-user': message.authorId.split('-')[0] === user.username,
-                          'not-users': message.authorId.split('-')[0] !== user.username
-                        }" -->
           <ion-col size="10">
             <div [id]="message.id" class="item" [ngClass]="{
                           'belongs-to-user': message.authorId.split('-')[0] === user.username,
                           'not-users': message.authorId.split('-')[0] !== user.username
                         }">
-              <div *ngIf="message.repliedMessage" (click)="scrollToRepliedMessage(message.replyMessageId)"
-                class="replyMessage">
-                <h4>{{replyMessageAuthor.split('-')[0]}} {{ '['+replyMessageTime +']'}}</h4>
+              <div *ngIf="replyMessageAuthor && replyMessageTime && message.repliedMessage"
+                (click)="scrollToRepliedMessage(message.replyMessageId)" class="replyMessage">
+                <h4>{{replyMessageAuthor.split('-')[0]}}&nbsp;&nbsp;&nbsp;{{ '['+replyMessageTime +']'}} </h4>
                 <p>{{message.repliedMessage|truncateText: 65}}</p>
               </div>
-              <ion-label class="ion-text-wrap">
+              <ion-label class="ion-text-wrap ">
 
-                <ion-text class=" content">
-                  <h3>{{ message.content }}</h3><br>
-                </ion-text>
+                <p class=" content">
+                  {{ message.content }}
+                </p><br>
                 <div [ngClass]="{
                           'time': message.authorId.split('-')[0] === user.username,
                           'time-left':message.authorId.split('-')[0] !== user.username
@@ -37,6 +34,8 @@
                   <p>
                     <time class="">{{setTime(message.createdAt)}}</time>
                   </p>
+                  <ion-icon *ngIf="!message.isSent" color="medium" name="checkmark"></ion-icon>
+                  <ion-icon *ngIf="message.isSent" color="success" name="checkmark-done"></ion-icon>
                 </div>
               </ion-label>
             </div>

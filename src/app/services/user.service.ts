@@ -47,6 +47,7 @@ export class UserService {
       name: "Jones Kevin",
       dob: "06/19/1991",
       conversations: [],
+      savedMessages: [],
     },
     {
       type: "patient",
@@ -57,6 +58,7 @@ export class UserService {
       name: "Monroe Joel",
       dob: "03/04/1976",
       conversations: [],
+      savedMessages: [],
     },
     {
       type: "patient",
@@ -67,6 +69,7 @@ export class UserService {
       name: "Lionel Daniel",
       dob: "10/15/1988",
       conversations: [],
+      savedMessages: [],
     },
     {
       type: "patient",
@@ -77,6 +80,7 @@ export class UserService {
       name: "Job Steve",
       dob: "11/28/1976",
       conversations: [],
+      savedMessages: [],
     },
     {
       type: "patient",
@@ -87,6 +91,7 @@ export class UserService {
       name: "Babatunde Samuel",
       dob: "12/28/1993",
       conversations: [],
+      savedMessages: [],
     },
   ];
 

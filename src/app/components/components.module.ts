@@ -19,6 +19,9 @@ import { RouteReuseStrategy } from "@angular/router";
 import { Clipboard } from "@ionic-native/clipboard/ngx";
 import { FilterComponent } from "./filter/filter.component";
 import { MenuComponent } from "./menu/menu.component";
+import { ZoomComponent } from "./zoom/zoom.component";
+import { ZoomLoginComponent } from "./zoom-login/zoom-login.component";
+import { Zoom } from "@ionic-native/zoom/ngx";
 
 const components: any[] = [
   UpdateConversationComponent,
@@ -32,6 +35,8 @@ const components: any[] = [
   MessageActionsComponent,
   FilterComponent,
   MenuComponent,
+  ZoomComponent,
+  ZoomLoginComponent,
 ];
 
 @NgModule({
@@ -45,6 +50,7 @@ const components: any[] = [
     IonCustomScrollbarModule,
   ],
   providers: [
+    Zoom,
     Clipboard,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],

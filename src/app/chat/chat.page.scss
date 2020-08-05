@@ -4,11 +4,15 @@ ion-content {
 }
 
 .container {
-  position: relative;
+  position: absolute;
   height: -moz-calc(100vh - (100px));
   height: -webkit-calc(100vh - (100px));
   width: 96%;
   margin: auto;
+  overflow: hidden;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
 }
 
 ion-label {
@@ -19,18 +23,38 @@ app-user-list {
   overflow-y: scroll;
 }
 
-app-message-input {
-  position: fixed;
-  bottom: 8px;
-  width: 96%;
+.image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+  // z-index: -1;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+}
+
+.message-input {
+
+  bottom: 0px;
+  max-width: 800px;
   margin: auto;
+}
+
+app-message-input {
+  width: 100%;
 }
 
 .messages {
   height: 90%;
   overflow-y: auto;
-  // background: url('../../assets/images/defaultBcg.jpeg') center/center cover;
-  // z-index: -1;
+  max-width: 800px;
+  margin: auto;
+  padding-bottom: 2em;
 }
 
 .no-conversation {

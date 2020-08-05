@@ -41,7 +41,7 @@
         (sendMessage)="retrieveMessageLength($event)" [conversationId]='conversation.id' [messages]='selectedMessages'>
       </app-message-actions>
     </ion-toolbar>
-    <ion-toolbar *ngIf=" selectedMessages.length===0">
+    <ion-toolbar *ngIf="currentUser.type==='clinician' && selectedMessages.length===0">
       <ion-buttons slot="primary">
         <ion-menu-button auto-hide="false"></ion-menu-button>
       </ion-buttons>
@@ -63,19 +63,26 @@
   <ion-content>
     <!-- <app-user-list></app-user-list> -->
     <div *ngIf="conversation">
-
+      <div class="image-container">
+        <img src="/assets/images/defaultBcg.jpeg" alt="back ground">
+      </div>
       <div class="container">
         <div class="messages">
           <app-message [conversationId]="conversation.id" [replyMessageContent]='replyMessageContent'
-            [replyMessageAuthor]='replyMessageAuthor' [replyMessageTime]='replyMessageTime' [select]='select'
+            [replyMessageAuthor]='replyMessageAuthor' [replyMessage]="replyMessage"
+            [replyMessageTime]='replyMessageTime' [select]='select'
             (sendSelectedMessages)="retrieveSelectedMessages($event)">
           </app-message>
         </div>
-        <app-message-input [_message]="_message" [replyMessage]="replyMessage"
-          (sendMessageString)="retrieveMessageString($event)">
-        </app-message-input>
+        <div class="message-input">
+          <app-message-input [_message]="_message" [replyMessage]="replyMessage"
+            (sendMessageString)="retrieveMessageString($event)">
+          </app-message-input>
+        </div>
       </div>
     </div>
+
+
   </ion-content>
 
   <!-- <ion-tabs>

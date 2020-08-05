@@ -26,6 +26,7 @@ export class MessageComponent implements OnChanges, OnInit {
   @Input() select;
   selectedMessages: Message[] = [];
   @Input() replyMessageTime: string;
+  @Input() replyMessage: Message;
   @Input() replyMessageAuthor: string;
   @Input() replyMessageContent: string;
   @Output() sendSelectedMessages: EventEmitter<Message[]> = new EventEmitter();
@@ -42,6 +43,10 @@ export class MessageComponent implements OnChanges, OnInit {
     this.messages$ = this.conversationService.getMessagesFormConversation(
       this.conversationId
     );
+    // const elem = document.getElementById("background-content")
+    // .setAttribute("style", "opacity: .3;");
+    // console.log(elem);
+    // elem.classList.remove("item-inner");
   }
 
   setTime(date) {
