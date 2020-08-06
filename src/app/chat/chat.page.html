@@ -41,8 +41,8 @@
         (sendMessage)="retrieveMessageLength($event)" [conversationId]='conversation.id' [messages]='selectedMessages'>
       </app-message-actions>
     </ion-toolbar>
-    <ion-toolbar *ngIf="currentUser.type==='clinician' && selectedMessages.length===0">
-      <ion-buttons slot="primary">
+    <ion-toolbar *ngIf="selectedMessages.length===0">
+      <ion-buttons *ngIf="currentUser.type==='clinician'" slot="primary">
         <ion-menu-button auto-hide="false"></ion-menu-button>
       </ion-buttons>
       <ion-buttons slot="start">
@@ -69,7 +69,7 @@
       <div class="container">
         <div class="messages">
           <app-message [conversationId]="conversation.id" [replyMessageContent]='replyMessageContent'
-            [replyMessageAuthor]='replyMessageAuthor' [replyMessage]="replyMessage"
+            [replyMessageAuthor]='replyMessageAuthor' [replyMessage]="replyMessage" [reciever]='reciever'
             [replyMessageTime]='replyMessageTime' [select]='select'
             (sendSelectedMessages)="retrieveSelectedMessages($event)">
           </app-message>

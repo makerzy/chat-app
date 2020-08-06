@@ -8,7 +8,7 @@ import {
   ChangeDetectorRef,
 } from "@angular/core";
 import { UserService } from "../../services/user.service";
-import { User, Message } from "src/app/interfaces/chat.model";
+import { User, Message, Conversation } from "src/app/interfaces/chat.model";
 import { Observable } from "rxjs";
 import { ConversationService } from "src/app/services/conversation.service";
 import { MomentService } from "src/app/services/moment.service";
@@ -23,6 +23,7 @@ export class MessageComponent implements OnChanges, OnInit {
   messages$: Observable<Message[]>;
   showReply: boolean = false;
   user: User;
+  @Input() reciever: User;
   @Input() select;
   selectedMessages: Message[] = [];
   @Input() replyMessageTime: string;
@@ -30,6 +31,7 @@ export class MessageComponent implements OnChanges, OnInit {
   @Input() replyMessageAuthor: string;
   @Input() replyMessageContent: string;
   @Output() sendSelectedMessages: EventEmitter<Message[]> = new EventEmitter();
+  activeConversation: Conversation;
   constructor(
     private userService: UserService,
     private conversationService: ConversationService,
@@ -43,10 +45,20 @@ export class MessageComponent implements OnChanges, OnInit {
     this.messages$ = this.conversationService.getMessagesFormConversation(
       this.conversationId
     );
-    // const elem = document.getElementById("background-content")
-    // .setAttribute("style", "opacity: .3;");
-    // console.log(elem);
-    // elem.classList.remove("item-inner");
+    this.isSent();
+  }
+
+  ionViewDidLeave() {
+    console.log(this.activeConversation);
+  }
+
+  isSent() {
+    this.activeConversation = this.reciever.conversations.find(
+      ({ id }) => id === this.conversationId
+    );
+    if (this.reciever.connected) {
+      this.activeConversation.messages.forEach((msg) => (msg.isSent = true));
+    }
   }
 
   setTime(date) {

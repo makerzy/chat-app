@@ -22,6 +22,7 @@ import { MenuComponent } from "./menu/menu.component";
 import { ZoomComponent } from "./zoom/zoom.component";
 import { ZoomLoginComponent } from "./zoom-login/zoom-login.component";
 import { Zoom } from "@ionic-native/zoom/ngx";
+import { PopoverComponent } from "./popover/popover.component";
 
 const components: any[] = [
   UpdateConversationComponent,
@@ -37,6 +38,7 @@ const components: any[] = [
   MenuComponent,
   ZoomComponent,
   ZoomLoginComponent,
+  PopoverComponent,
 ];
 
 @NgModule({

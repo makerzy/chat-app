@@ -17,8 +17,27 @@ ion-textarea {
 ion-item {
   border: solid 1px #ddd;
   border-radius: 23px;
+  width: 96%;
+  margin: auto;
+  bottom: 5px;
 }
 
+.icon {
+  // background-color: #005e54;
+  // border: #005e54 1px solid;
+  // border-radius: 50%;
+  // width: 1.5em;
+  // height: 1.6em;
+  background: #008a7c;
+  border-radius: 50%;
+  color: #fff;
+  position: relative;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 input {
   overflow-wrap: break-word;

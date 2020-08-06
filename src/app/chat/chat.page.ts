@@ -51,6 +51,19 @@ export class ChatPage implements OnInit {
   async ngOnInit() {
     this.retrieveUserSelection();
   }
+  ionViewDidEnter() {
+    this.isActive();
+  }
+
+  ionViewDidLeave() {
+    this.currentUser.connected = false;
+  }
+
+  isActive() {
+    if (this.currentUser) {
+      this.currentUser.connected = true;
+    }
+  }
 
   closeMenu() {
     this.mneuController.close(); //Add this method to your button click function

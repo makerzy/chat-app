@@ -1,7 +1,7 @@
 import { ComponentType } from "@angular/cdk/portal";
 import { Injectable } from "@angular/core";
 import { PopoverController } from "@ionic/angular";
-
+import { PopoverComponent } from "../components/popover/popover.component";
 @Injectable({
   providedIn: "root",
 })

@@ -50,8 +50,9 @@ ion-col {
 
 .belongs-to-user {
   background: #e1ffc7;
-  border-radius: 8px 8px 0 8px;
+  border-radius: 13px 13px 0 13px;
   float: right;
+  margin-top: .2em;
   padding: .4em;
   /* Opera 7 */
   white-space: pre-wrap;
@@ -68,9 +69,10 @@ ion-col {
   // float: left;
   // max-width: 100%;
   background: #fff;
-  border-radius: 8px 8px 8px 0;
+  border-radius: 10px 10px 10px 0;
   float: left;
   padding: .4em;
+  margin-top: .2em;
 }
 
 .ion-item .belong-to-user:after {
