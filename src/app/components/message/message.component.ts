@@ -5,14 +5,15 @@ import {
   OnInit,
   Output,
   EventEmitter,
-  ChangeDetectorRef,
+  ViewChild,
 } from "@angular/core";
 import { UserService } from "../../services/user.service";
 import { User, Message, Conversation } from "src/app/interfaces/chat.model";
 import { Observable } from "rxjs";
 import { ConversationService } from "src/app/services/conversation.service";
 import { MomentService } from "src/app/services/moment.service";
-
+import { PopoverService } from "src/app/services/popover.service";
+import { PopoverComponent } from "../popover/popover.component";
 @Component({
   selector: "app-message",
   templateUrl: "./message.component.html",
@@ -32,10 +33,13 @@ export class MessageComponent implements OnChanges, OnInit {
   @Input() replyMessageContent: string;
   @Output() sendSelectedMessages: EventEmitter<Message[]> = new EventEmitter();
   activeConversation: Conversation;
+  @ViewChild(PopoverComponent) popoverComponent;
+  hover: boolean = false;
   constructor(
     private userService: UserService,
     private conversationService: ConversationService,
-    private moment: MomentService
+    private moment: MomentService,
+    private popoverService: PopoverService
   ) {}
 
   ngOnInit() {}
@@ -45,7 +49,6 @@ export class MessageComponent implements OnChanges, OnInit {
     this.messages$ = this.conversationService.getMessagesFormConversation(
       this.conversationId
     );
-    this.isSent();
   }
 
   ionViewDidLeave() {
@@ -59,6 +62,16 @@ export class MessageComponent implements OnChanges, OnInit {
     if (this.reciever.connected) {
       this.activeConversation.messages.forEach((msg) => (msg.isSent = true));
     }
+  }
+
+  async openPopover(message: Message) {
+    this.popoverService.assignData(message);
+    this.popoverService.presentPopover("click", PopoverComponent);
+  }
+
+  async getPopoverResult() {
+    const popoverResult = await this.popoverService.getPopoverResult();
+    console.log("PopoverResultMEsssage", popoverResult);
   }
 
   setTime(date) {
@@ -84,6 +97,7 @@ export class MessageComponent implements OnChanges, OnInit {
       const element: HTMLElement = document.getElementById(lastMessage.id);
       element.scrollIntoView({ behavior: "auto" });
     }
+    this.isSent();
   }
 
   getSelected(msg: Message) {

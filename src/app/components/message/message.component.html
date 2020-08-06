@@ -26,11 +26,14 @@
 
                 <p class=" content">
                   {{ message.content }}
+                  <span class="icon-overlay"></span>
                 </p><br>
                 <div [ngClass]="{
-                          'time': message.authorId.split('-')[0] === user.username,
-                          'time-left':message.authorId.split('-')[0] !== user.username
-                        }">
+                  'time': message.authorId.split('-')[0] === user.username,
+                  'time-left':message.authorId.split('-')[0] !== user.username
+                }">
+                  <ion-icon (click)="openPopover(message)" class="optionIcon" color="medium" name="chevron-down">
+                  </ion-icon>
                   <p>
                     <time class="">{{setTime(message.createdAt)}}</time>
                   </p>

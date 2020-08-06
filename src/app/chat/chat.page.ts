@@ -11,11 +11,13 @@ import { NavService } from "../services/nav.service";
 import { SavedMessagesComponent } from "../components/saved-messages/saved-messages.component";
 import { MessageComponent } from "../components/message/message.component";
 import { MomentService } from "../services/moment.service";
+import { PopoverComponent } from "../components/popover/popover.component";
 
 @Component({
   selector: "app-chat",
   templateUrl: "./chat.page.html",
   styleUrls: ["./chat.page.scss"],
+  providers: [PopoverComponent],
 })
 export class ChatPage implements OnInit {
   conversation: Conversation;
@@ -34,7 +36,9 @@ export class ChatPage implements OnInit {
   placeholder: string = "Search user by name or dob";
   select: boolean = false;
   privateMsg: boolean = false;
+
   @ViewChild(MessageComponent) MsgComponent;
+
   constructor(
     private userService: UserService,
     private conversationService: ConversationService,
@@ -42,7 +46,8 @@ export class ChatPage implements OnInit {
     private popoverService: PopoverService,
     private mneuController: MenuController,
     private navService: NavService,
-    private moment: MomentService
+    private moment: MomentService,
+    private popComponent: PopoverComponent
   ) {
     this.currentUser = this.userService.getCurrentUser();
     this.users = this.userService.getAllUsers();
@@ -170,6 +175,11 @@ export class ChatPage implements OnInit {
     }
     //Calling ChildComponent function from ParentComponent
     setTimeout(() => this.MsgComponent.scrollToLastMessage(), 50);
+  }
+
+  public retrieveReplyFromPopover() {
+    this.replyMessage = this.popComponent.message[0];
+    console.log(this.replyMessage);
   }
 
   retrieveReplyMessages(message: Message) {

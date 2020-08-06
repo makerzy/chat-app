@@ -43,7 +43,9 @@
     </ion-toolbar>
     <ion-toolbar *ngIf="selectedMessages.length===0">
       <ion-buttons *ngIf="currentUser.type==='clinician'" slot="primary">
-        <ion-menu-button auto-hide="false"></ion-menu-button>
+        <ion-menu-button auto-hide="false">
+          <ion-icon name="ellipsis-vertical"></ion-icon>
+        </ion-menu-button>
       </ion-buttons>
       <ion-buttons slot="start">
         <ion-button>
@@ -62,6 +64,7 @@
 
   <ion-content>
     <!-- <app-user-list></app-user-list> -->
+    <div class="overlay"></div>
     <div *ngIf="conversation">
       <div class="image-container">
         <img src="/assets/images/defaultBcg.jpeg" alt="back ground">
@@ -81,8 +84,6 @@
         </div>
       </div>
     </div>
-
-
   </ion-content>
 
   <!-- <ion-tabs>

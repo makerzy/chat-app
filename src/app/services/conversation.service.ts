@@ -134,6 +134,9 @@ export class ConversationService {
     return filteredConversations[0];
   }
 
+  replyMessage(message: Message) {
+    return message;
+  }
   deleteMessages(messages: Message[], conversationId: string) {
     const _conversations = this.getCurrentConversationValue() || [];
     let filteredConversation = _conversations.find(

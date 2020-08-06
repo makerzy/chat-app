@@ -145,8 +145,25 @@ ion-item {
 .content {
   display: block;
   margin: 3px;
-  min-width: 6em;
+  min-width: 7em;
   padding: .2em;
+}
+
+
+.optionIcon {
+  height: 1.3em;
+  width: 1.3em;
+  cursor: pointer;
+  right: 0;
+  top: 7px;
+  padding: .2em;
+  margin-right: .2em;
+  opacity: 0;
+}
+
+.optionIcon:hover {
+  opacity: 1;
+  background-color: transparent;
 }
 
 .replyMessage {
