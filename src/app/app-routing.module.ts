@@ -5,25 +5,27 @@ const routes: Routes = [
   {
     path: "home",
     loadChildren: () =>
-      import("./home/home.module").then((m) => m.HomePageModule),
+      import("./pages/home/home.module").then((m) => m.HomePageModule),
   },
   {
     path: "",
-    redirectTo: "chat",
+    redirectTo: "entry",
     pathMatch: "full",
   },
   {
-    path: "chat",
+    path: "chat/:id",
     loadChildren: () =>
-      import("./chat/chat.module").then((m) => m.ChatPageModule),
+      import("./pages/chat/chat.module").then((m) => m.ChatPageModule),
   },
   {
-    path: 'modal',
-    loadChildren: () => import('./modal/modal.module').then( m => m.ModalPageModule)
+    path: "modal",
+    loadChildren: () =>
+      import("./pages/modal/modal.module").then((m) => m.ModalPageModule),
   },
   {
-    path: 'zoom',
-    loadChildren: () => import('./zoom/zoom.module').then( m => m.ZoomPageModule)
+    path: "entry",
+    loadChildren: () =>
+      import("./pages/entry/entry.module").then((m) => m.EntryPageModule),
   },
 ];
 

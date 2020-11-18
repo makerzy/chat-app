@@ -3,38 +3,52 @@
     [data]="{ list: users, placeholder: 'Search user by name or dob', searchParams: displayParams }">
   </app-filter>
   <div *ngIf="filteredUser.length>0">
-    <mat-list *ngFor="let user of filteredUser ">
-      <mat-list-item (click)="sendUser(user)">
-        <h3 mat-line>{{user.name}}</h3>
-        <p mat-line>{{user.type}}</p>
-      </mat-list-item>
-    </mat-list>
-  </div>
-  <div *ngIf="filteredUser.length===0">
-    <ion-list *ngFor="let user of users">
-      <div *ngIf=" user.conversations.length>0 && user.conversations as conversations">
-        <ion-list (click)="getUser(user)" *ngIf=" user.userId !==_user && conversations.length>0">
-          <ion-text>
-            <h3>{{user.name}}</h3>
-            <p *ngIf="conversations[0].messages.length>0">
-              {{conversations[0].messages[conversations[0].messages.length-1].content}}</p>
-            <p *ngIf="conversations[0].messages.length>0"><small>
-                {{conversations[0].messages[conversations[0].messages.length-1].createdAt | fromNow}}</small>
-            </p>
-          </ion-text>
+    <ion-list-header>
+      <ion-title color="primary">Users</ion-title>
+    </ion-list-header>
+    <ion-list *ngFor="let user of filteredUser ">
+      <ion-item *ngIf="user.userId !== _user.userId" (click)="sendUser(user)">
 
-        </ion-list>
-      </div>
+        <ion-grid>
+          <ion-row (click)="menuCtrl.close()">
+            <ion-col size-md class="ion-align-self-start" size="8">
+              <ion-label class="ion-text-wrap">{{user.name}}</ion-label>
+            </ion-col>
+            <ion-col size-md size="4" class="ion-align-self-end">
+              <ion-label>{{user.type}}</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </ion-item>
     </ion-list>
   </div>
-  <!--  <app-search [data]="{ list: users, label: 'Find user by name', textKey: displayParams, valueKey: users[' userId'] }"
-    (sendData)="retrieveSearchSelection($event)"></app-search> -->
+  <div *ngIf="filteredUser.length===0">
+    <ion-list-header>
+      <ion-title color="primary"> {{_user.conversations.length>0 ? 'Chat History': 'No Chat found'}}</ion-title>
+    </ion-list-header>
+    <div *ngFor="let user of users">
+      <div class="_user" *ngIf=" user.conversations.length>0 && user.conversations as conversations">
+        <mat-list (click)="getUser(user)" *ngIf=" user.userId !==_user.userId && conversations.length>0">
+          <mat-list-item class="list-item" (click)="menuCtrl.close()">
+            <div class=" user-message">
+              <div class="name-header">
+                <h3>{{user.name}}</h3> <span
+                  *ngIf="conversations[0].unreadMessages.length>0 && conversations[0].unreadMessages[0].authorId !==_user.userId">
+                  <ion-badge color="light" slot="end">
+                    {{conversations[0].unreadMessages.length}}</ion-badge>
+                </span>
+              </div>
+              <h3 mat-line *ngIf="conversations[0].messages.length>0">
+                {{conversations[0].messages[conversations[0].messages.length-1].content | truncateText: 90}}</h3>
+              <small *ngIf="conversations[0].messages.length>0"><time>
+                  {{setTime(conversations[0].messages[conversations[0].messages.length-1].createdAt )}}</time>
+              </small>
+            </div>
+          </mat-list-item>
 
-  <!-- <mat-list *ngFor="let user of filteredUser ">
-    <mat-list-item (click)="sendUser(user)">
-      <h3 mat-line>{{user.name}}</h3>
-      <p mat-line>{{user.type}}</p>
-    </mat-list-item>
-  </mat-list> -->
-
+        </mat-list>
+      </div>
+    </div>
+  </div>
 </div>

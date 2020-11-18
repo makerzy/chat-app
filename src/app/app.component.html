@@ -1,3 +1,13 @@
-<ion-app>
+<!-- <ion-app>
   <ion-router-outlet id="menuContent"></ion-router-outlet>
+</ion-app> -->
+<ion-app>
+  <ion-split-pane when="lg" contentId="main-content">
+    <ion-menu side="start" class="max-height max-width" contentId="main-content">
+      <app-user-list></app-user-list>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+
+
 </ion-app>

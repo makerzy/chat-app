@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ModalController } from "@ionic/angular";
-import { ModalPage } from "src/app/modal/modal.page";
-import { Placeholder } from "@angular/compiler/src/i18n/i18n_ast";
+import { ModalPage } from "src/app/pages/modal/modal.page";
 
 @Injectable({
   providedIn: "root",

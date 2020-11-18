@@ -1,9 +1,11 @@
 import { Injectable } from "@angular/core";
+
 import {
   Conversation,
   Message,
   User,
   SavedMessage,
+  MessageType,
 } from "../interfaces/chat.model";
 import { v1 as uuid } from "uuid";
 import { of, BehaviorSubject, Observable } from "rxjs";
@@ -11,7 +13,6 @@ import { UserService } from "./user.service";
 // import { Clipboard } from "@ionic-native/clipboard/ngx";
 import { Plugins } from "@capacitor/core";
 import { MomentService } from "./moment.service";
-import { AlertService } from "./alert.service";
 
 const { Clipboard } = Plugins;
 @Injectable({
@@ -21,80 +22,9 @@ export class ConversationService {
   user: User;
   messages: any[] = [];
   conversations: Conversation[] = [
-    {
-      createdAt: new Date(),
-      id: uuid(),
-      messages: [
-        {
-          authorId: `Daniel-${uuid()}`,
-          content: "Hi from Dan",
-          conversationId: uuid(),
-          createdAt: new Date(),
-          id: uuid(),
-          isSent: false,
-        },
-        {
-          authorId: `Matt-${uuid()}`,
-          content: "hello from Matt",
-          conversationId: uuid(),
-          createdAt: new Date(),
-          id: uuid(),
-          isSent: false,
-        },
-      ],
-      name: "",
-      memberIds: [`Matt-${uuid()}`, `Daniel-${uuid()}`],
-    },
-    {
-      createdAt: new Date(),
-      id: uuid(),
-      messages: [
-        {
-          authorId: `Samuel-${uuid()}`,
-          content: "hello from Sam",
-          conversationId: uuid(),
-          createdAt: new Date(),
-          id: uuid(),
-          isSent: false,
-        },
-        {
-          authorId: `Joel-${uuid()}`,
-          content: "hello from Joel",
-          conversationId: uuid(),
-          createdAt: new Date(),
-          id: uuid(),
-          isSent: false,
-        },
-      ],
-      name: "",
-      memberIds: [`Joel-${uuid()}`, `Samuel-${uuid()}`],
-    },
-    {
-      createdAt: new Date(),
-      id: uuid(),
-      messages: [
-        {
-          authorId: `Steve-${uuid()}`,
-          content: "hello from Steve",
-          conversationId: uuid(),
-          createdAt: new Date(),
-          id: uuid(),
-          isSent: false,
-        },
-        {
-          authorId: `Kevin-${uuid()}`,
-          content: "hello from Kevin",
-          conversationId: uuid(),
-          createdAt: new Date(),
-          id: uuid(),
-          isSent: false,
-        },
-      ],
-      name: "",
-      memberIds: [`Kevin-${uuid()}`, `Steve-${uuid()}`],
-    },
+    /*  */
   ];
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private moment: MomentService) {
     this.user = userService.getCurrentUser();
   }
   currentConversationId: string;
@@ -159,9 +89,7 @@ export class ConversationService {
 
   sortMessages(messages: Message[]) {
     messages = messages.sort((a, b) => {
-      let dateA = new Date(a.createdAt).getTime();
-      let dateB = new Date(b.createdAt).getTime();
-      return dateA > dateB ? 1 : -1;
+      return -a.createdAt.localeCompare(b.createdAt);
     });
   }
 
@@ -179,33 +107,6 @@ export class ConversationService {
     return [...this.user.savedMessages];
   }
 
-  addPrivateMessage(_id: string, message: string) {
-    const _conversations = this.getCurrentConversationValue() || [];
-    let activeConversation: Conversation = _conversations.find(
-      ({ id }) => id === _id
-    );
-    const newMessage: Message = {
-      id: uuid(),
-      authorId: this.user.userId,
-      recieverId: this.user.userId,
-      content: message,
-      conversationId: activeConversation.id,
-      isSent: false,
-      createdAt: new Date(),
-    };
-    this.addMessages(newMessage, _id);
-    const recieverId = activeConversation.memberIds
-      .find((id) => id !== this.user.userId)
-      .split("-")[0];
-    console.log(recieverId);
-    const reciever = this.userService.getUserByUserId(recieverId);
-    let recieverMsg = reciever.conversations.find(
-      ({ id }) => id === activeConversation.id
-    ).messages;
-    recieverMsg = recieverMsg.filter(({ id }) => id !== newMessage.id);
-    console.log(recieverMsg);
-  }
-
   copyMessages(messages: Message[]) {
     this.sortMessages(messages);
 
@@ -219,17 +120,17 @@ export class ConversationService {
     this.user.savedMessages = this.user.savedMessages.filter(
       ({ id }) => id !== _id
     );
-
     console.log(this.user.savedMessages);
     return this.user.savedMessages;
   }
 
   createNewConversation(users: string[]) {
     const newConversation: Conversation = {
-      createdAt: new Date(),
+      createdAt: this.moment.getMoment(),
       id: uuid(),
       messages: [],
       memberIds: [...users],
+      unreadMessages: [],
     };
     this.addConversation(newConversation);
     return newConversation;
@@ -245,36 +146,59 @@ export class ConversationService {
     currentConversations.push(conversation);
   }
 
-  async createMessage(messageString: string, conversationId: string) {
+  getCurrentConversation(conversationId: string) {
     const conversations = this.getCurrentConversationValue() || [];
-    const currentConversation = conversations.find(
+    return conversations.find(
       (conversation) => conversation.id === conversationId
     );
-    let index = currentConversation.memberIds.indexOf(
-      currentConversation.memberIds.find(
-        (userId) => userId !== this.user.userId
-      )
-    );
-    const reciver = [...currentConversation.memberIds].splice(index, 1)[0];
+  }
+
+  getRecieverIdByConversationId(conversationId: string) {
+    const activeConversation = this.getCurrentConversation(conversationId);
+    return activeConversation.memberIds.find((id) => id !== this.user.userId);
+  }
+
+  getCurrentReciever(conversationId: string) {
+    const recieverId = this.getRecieverIdByConversationId(conversationId);
+    return this.userService.getUserByUserId(recieverId);
+  }
+  async createMessage(
+    text: string,
+    conversationId: string,
+    image?: string,
+    video?: string
+  ) {
+    const reciver = this.getRecieverIdByConversationId(conversationId);
     const newMessage: Message = {
       id: uuid(),
       authorId: this.user.userId,
       recieverId: reciver,
-      content: messageString,
+      content: text,
+      image,
+      video,
       conversationId,
-      isSent: false,
-      createdAt: new Date(),
+      isDelivered: false,
+      type: MessageType.public,
+      createdAt: this.moment.getMoment(),
     };
-    this.addMessages(newMessage, conversationId);
+    console.log("New Msg: ", newMessage);
     return newMessage;
   }
 
   addMessages(message: Message, _id: string) {
-    const currentConversations = this.getCurrentConversationValue() || [];
-    const activeConversation = currentConversations.find(
-      ({ id }) => id === _id
-    );
+    const activeConversation = this.getCurrentConversation(_id);
     activeConversation.messages.push(message);
+    const reciever = this.getCurrentReciever(_id);
+    activeConversation.unreadMessages = [
+      ...activeConversation.messages.filter((message) => !message.isDelivered),
+    ];
+    if (reciever.connected) {
+      activeConversation.messages.forEach(
+        (message) => (message.isDelivered = true)
+      );
+      activeConversation.unreadMessages = [];
+    }
+    console.log("Unread: ", activeConversation);
   }
 
   getMessagesFormConversation(_id: string) {

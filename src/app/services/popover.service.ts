@@ -12,21 +12,24 @@ export class PopoverService {
   assignData(_data: any) {
     this.data = _data;
   }
-  async presentPopover(ev: any, popoverComponent) {
+  async presentPopover(event: any, popoverComponent, componentProps?) {
     this.currentPopover = popoverComponent;
     this.popover = await this.popoverController.create({
       component: this.currentPopover,
-      cssClass: "my-custom-class",
-      event: ev,
-      translucent: true,
+      componentProps,
+      mode: "ios",
+      event,
+      animated: true,
     });
     return await this.popover.present();
   }
 
-  dismissPopover() {
+  dismissPopover(data?) {
+    data ? (this.data = data) : this.data;
     if (this.currentPopover) {
-      this.popoverController.dismiss(this.data).then(() => {
+      return this.popoverController.dismiss(this.data).then(() => {
         this.currentPopover = null;
+        this.data = null;
       });
     }
   }

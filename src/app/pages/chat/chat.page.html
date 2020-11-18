@@ -1,0 +1,48 @@
+  <ion-header>
+    <ion-toolbar *ngIf="selectedMessages && selectedMessages.length>0">
+      <app-message-actions [users]='users' [user]='currentUser' (sendReplyMessage)='retrieveReplyMessages($event)'
+        (sendMessage)="retrieveMessageLength($event)" [conversationId]='conversation.id' [messages]='selectedMessages'>
+      </app-message-actions>
+    </ion-toolbar>
+    <ion-toolbar *ngIf="selectedMessages.length===0">
+      <ion-buttons slot="primary">
+        <ion-button (click)="openActions($event)">
+          <ion-icon name="ellipsis-vertical"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+
+      <ion-title *ngIf="reciever">
+        {{reciever.name}}
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <div class=""></div>
+    <div *ngIf="conversation">
+
+      <div class="container">
+        <div class="messages">
+          <app-message [conversationId]="conversation.id" [replyMessageContent]='replyMessageContent'
+            [replyMessageAuthor]='replyMessageAuthor' [replyMessage]="replyMessage" [reciever]='reciever'
+            [replyMessageTime]='replyMessageTime' [select]='select' (sendPopoverMsg)='retrieveReplyFromPopover($event)'
+            (sendSelectedMessages)="retrieveSelectedMessages($event)">
+          </app-message>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+  <ion-footer class="ion-no-border">
+    <ion-toolbar>
+
+
+      <app-reply-message class="max-width" [replyMessage]="replyMessage"></app-reply-message>
+
+      <app-message-input class="max-width " [_message]="_message" (sendMessageString)="retrieveMessageString($event)">
+      </app-message-input>
+
+    </ion-toolbar>
+  </ion-footer>

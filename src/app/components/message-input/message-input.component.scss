@@ -1,42 +1,59 @@
-mat-form-field {
-  width: 100%;
+textarea[cdktextareaautosize].mat-input-element {
+  overflow: hidden;
 }
 
 ion-textarea {
-  width: 90%;
-  bottom: 0;
   margin: auto;
-}
 
-.replyMessage {
-  background-color: #bbbbbd;
-  padding: 8px;
-  border-radius: 5px 5px 0 0;
-}
-
-ion-item {
+  max-height: 120px;
   border: solid 1px #ddd;
-  border-radius: 25px;
-  width: 96%;
-  margin: auto;
-  bottom: 5px;
+  // padding: 0;
+  border-radius: 23px;
+  // overflow: auto;
+  // padding: 5px 0;
 }
 
-.icon {
-  // background-color: #005e54;
-  // border: #005e54 1px solid;
-  // border-radius: 50%;
-  // width: 1.5em;
-  // height: 1.6em;
-  background: #008a7c;
-  border-radius: 50%;
-  color: #fff;
-  position: relative;
-  width: 48px;
-  height: 48px;
+
+#upload {
+  display: none;
+}
+
+.inputs {
+  margin: auto;
+}
+
+.icon-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon_1,
+.icon_2 {
+  cursor: pointer;
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: auto;
+  bottom: 1.2rem;
+}
+
+
+.icon_1 {
+  background: #008a7c;
+  border-radius: 50%;
+  color: #fff;
+
+}
+
+.icon {
+  width: 2rem;
+  height: 2rem;
+  font-weight: bolder;
+  position: relative;
 }
 
 input {

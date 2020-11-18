@@ -5,6 +5,7 @@ import { AlertController } from "@ionic/angular";
   providedIn: "root",
 })
 export class AlertService {
+  resolve: string;
   constructor(public alertController: AlertController) {}
 
   async presentAlert(header, message) {
@@ -16,7 +17,7 @@ export class AlertService {
     await alert.present();
   }
 
-  async presentAlertConfirm(header, message, func) {
+  async presentAlertConfirm(header, message) {
     const alert = await this.alertController.create({
       cssClass: "my-custom-class",
       header,
@@ -25,20 +26,15 @@ export class AlertService {
         {
           text: "Cancel",
           role: "cancel",
-          cssClass: "secondary",
-          handler: (blah) => {
-            console.log("Confirm Cancel: blah");
-          },
         },
         {
           text: "Okay",
-          handler: () => {
-            console.log("Confirm Okay");
-            func;
-          },
+          role: "continue",
         },
       ],
     });
     await alert.present();
+    const { role } = await alert.onDidDismiss();
+    return role;
   }
 }

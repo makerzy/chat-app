@@ -11,7 +11,7 @@ export class MomentService {
     return moment().format(format);
   }
   getMoment() {
-    return moment();
+    return moment().toISOString();
   }
   getMinDate() {
     return moment().subtract(95, "years");
@@ -29,7 +29,7 @@ export class MomentService {
     return moment(date).format("h: mm A l");
   }
 
-  formatTimeDate(date: Date) {
+  formatTimeDate(date: string) {
     return moment(date).format("h:mm A");
   }
 }

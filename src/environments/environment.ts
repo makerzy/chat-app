@@ -6,9 +6,16 @@ export const environment = {
   production: false,
 };
 export const ZoomKeys = {
-  SDK_KEY: "",
-  SDK_SECRET: "",
+  SDK_KEY: "kjsbvjkvbksjvkjsvbkbvkjdvkjsdkjvbsdjkv",
+  SDK_SECRET: "vjkvsjdkfvbsjvlbsjbjsbjksblfjsjvbkfjksbvjkvjsljfvblsjvbljsb",
 };
+export const AWSKeys = {
+  AWS_SECRET_ACCESS_KEY: "kjsbvjkvbksjvkjsvbkbvkjdvkjsdkjvbsdjkv",
+  AWS_ACCESS_KEY_ID:
+    "vjkvsjdkfvbsjvlbsjbjsbjksblfjsjvbkfjksbvjkvjsljfvblsjvbljsb",
+  AWS_REGION: "",
+};
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

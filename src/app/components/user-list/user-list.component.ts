@@ -5,10 +5,15 @@ import {
   Output,
   EventEmitter,
   OnInit,
+  ViewChild,
+  ChangeDetectorRef,
 } from "@angular/core";
 import { UserService } from "src/app/services/user.service";
 import { User } from "src/app/interfaces/chat.model";
 import { NavService } from "src/app/services/nav.service";
+import { MomentService } from "src/app/services/moment.service";
+import { MenuController } from "@ionic/angular";
+import { FilterComponent } from "../filter/filter.component";
 
 @Component({
   selector: "app-user-list",
@@ -17,17 +22,24 @@ import { NavService } from "src/app/services/nav.service";
 })
 export class UserListComponent implements OnInit {
   _users: User[];
-  _user: string;
+  _user: User;
+  reciever: User;
   displayParams = ["name", "dob"];
   filteredUser: User[] = [];
+  textInput: string;
+  unreadMessagesCount: number = null;
+  @ViewChild(FilterComponent) filterComponent;
   @Output() sendData: EventEmitter<User> = new EventEmitter();
   constructor(
     private userService: UserService,
-    private navService: NavService
+    private navService: NavService,
+    private moment: MomentService,
+    public menuCtrl: MenuController,
+    private cdref: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    this._user = this.userService.getCurrentUser().userId;
+    this._user = this.userService.getCurrentUser();
     this.getUsers();
   }
 
@@ -35,29 +47,38 @@ export class UserListComponent implements OnInit {
     this._users = this.userService.getAllUsers();
   }
 
-  retrieveSearchSelection(user) {
-    console.log(" User: ", user);
-    if (user) {
-      this.navService.push("chat", { user: user });
-      this.sendData.emit(user);
-    }
-  }
+  // ngAfterContentChecked() {
+
+  // }
   retrieveFilteredList(users: User[]) {
-    console.log(users);
     if (users) this.filteredUser = users;
     else this.filteredUser = [];
   }
 
   sendUser(user: User) {
-    console.log(user);
-    this.navService.push("chat", { user: user });
-    this.sendData.emit(user);
+    if (user) {
+      this.navService.setRoot(`chat/${user.userId}`, { user });
+      this.sendData.emit(user);
+    }
+    this.filterComponent.search = "";
   }
 
+  setTime(date) {
+    // this.getUnreadMessages();
+    return this.moment.formatTimeDate(date);
+  }
   getUser(user: User) {
-    console.log(user);
-    this.navService.push("chat", { user: user });
-    this.sendData.emit(user);
-    this.filteredUser = [];
+    if (user) {
+      this.navService.setRoot(`chat/${user.userId}`, { user });
+      this.sendData.emit(user);
+      this.filteredUser = [];
+    }
+  }
+
+  getUnreadMessages() {
+    this._user.conversations.forEach((conversation) => {
+      this.unreadMessagesCount = conversation.unreadMessages.length;
+    });
+    console.log(this.unreadMessagesCount);
   }
 }

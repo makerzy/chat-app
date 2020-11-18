@@ -28,8 +28,6 @@ export class MessageActionsComponent implements OnInit {
   constructor(
     private conversationService: ConversationService,
     private modalService: ModalService,
-    private popover: PopoverController,
-    private alrtController: AlertController,
     private alrtService: AlertService
   ) {}
 
@@ -48,29 +46,13 @@ export class MessageActionsComponent implements OnInit {
     this.sendMessage.emit(this.messages);
   }
   async deleteMessages() {
-    const alert = await this.alrtController.create({
-      cssClass: "my-custom-class",
-      header: `Confirm`,
-      message: "All the messages will be deleted forever!!!",
-      buttons: [
-        {
-          text: "Cancel",
-          role: "cancel",
-          cssClass: "secondary",
-          handler: (blah) => {
-            console.log("Confirm Cancel: blah");
-          },
-        },
-        {
-          text: "Okay",
-          handler: () => {
-            console.log("Confirm Okay");
-            this.remove();
-          },
-        },
-      ],
-    });
-    await alert.present();
+    const alertReturn = await this.alrtService.presentAlertConfirm(
+      "Confirm",
+      "All the messages will be deleted forever!!!"
+    );
+    if (alertReturn === "continue") {
+      this.remove();
+    } else return;
   }
 
   async forwardMessages() {
@@ -129,9 +111,5 @@ export class MessageActionsComponent implements OnInit {
       });
     });
     this.alrtService.presentAlert("", "Copied to clipboard!");
-  }
-
-  dismissPopover() {
-    this.popover.dismiss();
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { v1 as uuid } from "uuid";
 import { BehaviorSubject, Observable, of } from "rxjs";
 import { User } from "../interfaces/chat.model";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: "root",
@@ -13,7 +14,7 @@ export class UserService {
       userId: `Matt-${uuid()}`,
       registered: true,
       username: "Matt",
-      connected: true,
+      connected: false,
       name: "Peterson Matt",
       dob: "09/13/1987",
       conversations: [],
@@ -43,7 +44,7 @@ export class UserService {
       userId: `Kevin-${uuid()}`,
       registered: true,
       username: "Kevin",
-      connected: true,
+      connected: false,
       name: "Jones Kevin",
       dob: "06/19/1991",
       conversations: [],
@@ -76,7 +77,7 @@ export class UserService {
       userId: `Steve-${uuid()}`,
       registered: true,
       username: "Steve",
-      connected: true,
+      connected: false,
       name: "Job Steve",
       dob: "11/28/1976",
       conversations: [],
@@ -87,7 +88,7 @@ export class UserService {
       userId: `Samuel-${uuid()}`,
       registered: true,
       username: "Samuel",
-      connected: true,
+      connected: false,
       name: "Babatunde Samuel",
       dob: "12/28/1993",
       conversations: [],
@@ -96,7 +97,7 @@ export class UserService {
   ];
 
   currentUserId: string;
-  constructor() {}
+  constructor(private httpClient: HttpClient) {}
 
   getCurrentUser() {
     return this.getUserByUserId("Joel");

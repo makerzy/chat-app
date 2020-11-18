@@ -1,44 +1,40 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { IonCustomScrollbarModule } from "ion-custom-scrollbar";
-import { UpdateConversationComponent } from "./update-conversation/update-conversation.component";
-import { SaveMessageComponent } from "./save-message/save-message.component";
-import { ConversationListComponent } from "./conversation-list/conversation-list.component";
-import { SavedMessagesComponent } from "./saved-messages/saved-messages.component";
-import { MessageInputComponent } from "./message-input/message-input.component";
-import { MessageComponent } from "./message/message.component";
-import { UserListComponent } from "./user-list/user-list.component";
-import { MaterialModule } from "../material.module";
+import { UpdateConversationComponent } from "src/app/components/begin-conversation/begin-conversation.component";
+import { SaveMessageComponent } from "src/app/components/save-message/save-message.component";
+import { SavedMessagesComponent } from "src/app/components/saved-messages/saved-messages.component";
+import { MessageInputComponent } from "src/app/components/message-input/message-input.component";
+import { MessageComponent } from "src/app/components/message/message.component";
+import { UserListComponent } from "src/app/components/user-list/user-list.component";
+import { MaterialModule } from "src/app/material.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { FromNowPipe } from "../from-now.pipe";
+import { FromNowPipe } from "src/app/from-now.pipe";
 import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
-import { SearchComponent } from "./search/search.component";
-import { TruncateTextPipe } from "../truncate-text.pipe";
-import { MessageActionsComponent } from "./message-actions/message-actions.component";
+import { TruncateTextPipe } from "src/app/truncate-text.pipe";
+import { MessageActionsComponent } from "src/app/components/message-actions/message-actions.component";
 import { RouteReuseStrategy } from "@angular/router";
 import { Clipboard } from "@ionic-native/clipboard/ngx";
-import { FilterComponent } from "./filter/filter.component";
-import { MenuComponent } from "./menu/menu.component";
-import { ZoomComponent } from "./zoom/zoom.component";
-import { ZoomLoginComponent } from "./zoom-login/zoom-login.component";
-import { Zoom } from "@ionic-native/zoom/ngx";
-import { PopoverComponent } from "./popover/popover.component";
+import { FilterComponent } from "src/app/components/filter/filter.component";
+import { MenuComponent } from "src/app/components/menu/menu.component";
+import { PopoverComponent } from "src/app/components/popover/popover.component";
+import { ReplyMessageComponent } from "./reply-message/reply-message.component";
+import { AuthComponent } from "./auth/auth.component";
+import { S3UploadComponent } from './s3-file-upload/s3-file-upload.component';
 
 const components: any[] = [
   UpdateConversationComponent,
   SaveMessageComponent,
-  ConversationListComponent,
   SavedMessagesComponent,
   MessageInputComponent,
   MessageComponent,
   UserListComponent,
-  SearchComponent,
   MessageActionsComponent,
   FilterComponent,
   MenuComponent,
-  ZoomComponent,
-  ZoomLoginComponent,
+  ReplyMessageComponent,
   PopoverComponent,
+  AuthComponent,S3UploadComponent
 ];
 
 @NgModule({
@@ -52,7 +48,6 @@ const components: any[] = [
     IonCustomScrollbarModule,
   ],
   providers: [
-    Zoom,
     Clipboard,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],

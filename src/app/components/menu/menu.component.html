@@ -1,43 +1,25 @@
-<ion-header>
-  <ion-toolbar translucent>
-    <ion-title>Menu</ion-title>
-  </ion-toolbar>
-</ion-header>
 <ion-content>
+  <!-- <ion-list-header>
+    <ion-title>Menu</ion-title>
+  </ion-list-header> -->
   <ion-list>
-    <ion-item>
-      <ion-icon slot="start" name="search"></ion-icon>
-      <ion-label>Search User</ion-label>
-      <!-- <ion-label (click)="searchUsers()">Search User</ion-label> -->
-    </ion-item>
-    <ion-item>
+    <ion-item (click)="handleSelect()">
       <ion-icon name="checkmark" slot="start"></ion-icon>
-      <ion-label>Select Message</ion-label>
+      <ion-label class="ion-text-wrap">Select Message</ion-label>
     </ion-item>
-    <ion-item>
+    <ion-item (click)="goToFavorites()">
       <ion-icon slot="start" name="star"></ion-icon>
-      <ion-label>Favorites</ion-label>
-      <ion-badge>{{user.savedMessages.length}}</ion-badge>
+      <ion-label class="ion-text-wrap">Favorites</ion-label>
+      <ion-badge *ngIf="currentUser.savedMessages">{{currentUser.savedMessages.length}}</ion-badge>
     </ion-item>
-    <ion-item>
-      <ion-icon name="copy" slot="start"></ion-icon>
-      <ion-label>Copy Message</ion-label>
+    <ion-item (click)="sendPrivate()">
+      <ion-icon slot="start" name="eye-off"></ion-icon>
+      <ion-label class="ion-text-wrap"> Private Message</ion-label>
     </ion-item>
-    <ion-item>
-      <ion-icon name="trash" slot="start"></ion-icon>
-      <ion-label>Delete Message</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-icon name="arrow-redo" slot="start"></ion-icon>
-      <ion-label>Forward Message</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-icon name="eye-off" slot="start"></ion-icon>
-      <ion-label>Send Private Message</ion-label>
-    </ion-item>
-    <ion-item>
+    <ion-item (click)="goToSaveMessage()">
       <ion-icon name="save" slot="start"></ion-icon>
-      <ion-label>Save Message</ion-label>
+      <ion-label class="ion-text-wrap">Save Message</ion-label>
     </ion-item>
   </ion-list>
+
 </ion-content>

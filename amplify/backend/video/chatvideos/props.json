@@ -1,0 +1,11 @@
+{
+    "shared": {
+        "resourceName": "chatvideos"
+    },
+    "template": {
+        "name": "Amplify_Video_HLS.json"
+    },
+    "contentDeliveryNetwork": {
+        "enableDistribution": false
+    }
+}

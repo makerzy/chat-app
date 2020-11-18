@@ -8,7 +8,12 @@ import {
   ViewChild,
 } from "@angular/core";
 import { UserService } from "../../services/user.service";
-import { User, Message, Conversation } from "src/app/interfaces/chat.model";
+import {
+  User,
+  Message,
+  Conversation,
+  MessageType,
+} from "src/app/interfaces/chat.model";
 import { Observable } from "rxjs";
 import { ConversationService } from "src/app/services/conversation.service";
 import { MomentService } from "src/app/services/moment.service";
@@ -24,6 +29,7 @@ export class MessageComponent implements OnChanges, OnInit {
   messages$: Observable<Message[]>;
   showReply: boolean = false;
   user: User;
+  messageType = MessageType;
   @Input() reciever: User;
   @Input() select;
   selectedMessages: Message[] = [];
@@ -33,7 +39,7 @@ export class MessageComponent implements OnChanges, OnInit {
   @Input() replyMessageContent: string;
   @Output() sendSelectedMessages: EventEmitter<Message[]> = new EventEmitter();
   activeConversation: Conversation;
-  @ViewChild(PopoverComponent) popoverComponent;
+  @Output() sendPopoverMsg: EventEmitter<Message[]> = new EventEmitter();
   hover: boolean = false;
   constructor(
     private userService: UserService,
@@ -60,18 +66,22 @@ export class MessageComponent implements OnChanges, OnInit {
       ({ id }) => id === this.conversationId
     );
     if (this.reciever.connected) {
-      this.activeConversation.messages.forEach((msg) => (msg.isSent = true));
+      this.activeConversation.messages.forEach(
+        (msg) => (msg.isDelivered = true)
+      );
     }
   }
 
-  async openPopover(message: Message) {
+  async openPopover(event, message: Message) {
     this.popoverService.assignData(message);
-    this.popoverService.presentPopover("click", PopoverComponent);
+    await this.popoverService.presentPopover(event, PopoverComponent);
+    await this.getPopoverResult();
   }
 
   async getPopoverResult() {
     const popoverResult = await this.popoverService.getPopoverResult();
-    console.log("PopoverResultMEsssage", popoverResult);
+    console.log("PopoverResultMEsssage", popoverResult["data"]);
+    this.sendPopoverMsg.emit(popoverResult["data"]);
   }
 
   setTime(date) {

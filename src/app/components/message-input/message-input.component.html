@@ -1,18 +1,42 @@
-<div class="max-width replyMessage" *ngIf="replyMessage">
-  <!-- <h4>{{replyMessage.authorId.split('-')[0]}}</h4> -->
-  <p>
-    {{replyMessage.content| truncateText: 90}}
-  </p>
-</div>
-<ion-item lines="none">
-  <ion-textarea [(ngModel)]="message" (keydown)="handleSubmit($event)" placeholder="Type a message">
-  </ion-textarea>
-  <div class="icon">
-    <ion-icon color="light" (click)="sendMessage()" name="send"></ion-icon>
-  </div>
-</ion-item>
-<!-- <mat-form-field>
-  <textarea matInput type="text" placeholder="Send Message" [(ngModel)]="message"
-    (keydown)="handleSubmit($event)"></textarea>
-  <mat-icon *ngIf="!available" matSuffix (click)="sendMessage()">send</mat-icon>
-</mat-form-field> -->
+<app-s3-file-upload
+  (sendContentType)="retrieveContentType($event)"
+></app-s3-file-upload>
+
+<ion-grid>
+  <ion-row>
+    <ion-col offset="1" class="ion-no-padding icon-col" size="1">
+      <input type="file" (change)="onFileSelected($event)" id="upload" />
+      <div class="icon_2">
+        <ion-icon
+          (click)="handleUpload()"
+          class="max-width max-height"
+          color="medium"
+          name="attach"
+        ></ion-icon>
+      </div>
+    </ion-col>
+    <ion-col size="8">
+      <mat-form-field class="max-width">
+        <textarea
+          class="max-width"
+          [(ngModel)]="message"
+          autocomplete="true"
+          spellcheck="true"
+          auto-grow="true"
+          (keydown)="handleSubmit($event)"
+          placeholder="Type a message"
+          matInput
+          cdkTextareaAutosize
+          #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="5"
+        ></textarea>
+      </mat-form-field>
+    </ion-col>
+    <ion-col class="ion-no-padding icon-col" size="1">
+      <div class="icon_1">
+        <ion-icon color="light" (click)="sendMessage()" name="send"></ion-icon>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>

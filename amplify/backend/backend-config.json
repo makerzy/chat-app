@@ -1,0 +1,23 @@
+{
+  "auth": {
+    "clientchatappc0570a34": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  },
+  "storage": {
+    "s3d3ec366f": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
+    }
+  },
+  "video": {
+    "chatvideos": {
+      "service": "video",
+      "serviceType": "video-on-demand",
+      "providerPlugin": "awscloudformation"
+    }
+  }
+}

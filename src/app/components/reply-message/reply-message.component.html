@@ -1,0 +1,6 @@
+<mat-list class="max-width bg" *ngIf="replyMessage">
+  <mat-list-item>
+    <h3 mat-line>{{replyMessage.authorId}}</h3>
+    <p mat-line>{{replyMessage.content|truncateText:100}}</p>
+  </mat-list-item>
+</mat-list>

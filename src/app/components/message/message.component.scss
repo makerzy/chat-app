@@ -24,8 +24,7 @@ ion-content {
 ion-checkbox {
   border-width: 2px !important;
   border-style: solid !important;
-  // border-radius: 4px;
-  border-color: grey !important;
+  border-color: #fff !important;
 }
 
 ion-col {
@@ -34,7 +33,7 @@ ion-col {
 }
 
 .selectedMessage {
-  background-color: #afafb3;
+  background-color: #fff;
 }
 
 .ion-item:after {
@@ -50,10 +49,11 @@ ion-col {
 
 .belongs-to-user {
   background: #e1ffc7;
-  border-radius: 13px 13px 0 13px;
+  border-radius: 13px;
   float: right;
   margin-top: .2em;
   padding: .4em;
+  // margin-right: 1em;
   /* Opera 7 */
   white-space: pre-wrap;
   /* CSS3 */
@@ -63,13 +63,18 @@ ion-col {
   white-space: normal;
 }
 
+
+
+/* 
+<span data-testid="tail-in"data-icon="tail-in"class="_2-dPL"><svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 8 13"width="8"height="13"><path opacity=".13"fill="#0000000"d="M1.533 3.568L8 12.193V1H2.812C1.042 1 .474 2.156 1.533 3.568z"></path><path fill="currentColor"d="M1.533 2.568L8 11.193V0H2.812C1.042 0 .474 1.156 1.533 2.568z"></path></svg></span>
+*/
 .not-users {
   // margin-bottom: 5px;
   // // text-align: left;
   // float: left;
   // max-width: 100%;
   background: #fff;
-  border-radius: 10px 10px 10px 0;
+  border-radius: 0 13px 13px 13px;
   float: left;
   padding: .4em;
   margin-top: .2em;
@@ -158,17 +163,24 @@ ion-item {
   top: 7px;
   padding: .2em;
   margin-right: .2em;
-  opacity: 0;
 }
 
-.optionIcon:hover {
-  opacity: 1;
-  background-color: transparent;
-}
+
 
 .replyMessage {
   background-color: #07dba6;
   padding: 5px;
   border-radius: 5px;
   border-left: #3b99be 5px solid;
+}
+
+.media-content {
+  width: 300px;
+  height: auto;
+  padding: 2px;
+  margin-bottom: .6rem;
+}
+
+.media-content img{
+width: 100%;
 }
